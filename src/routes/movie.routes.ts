@@ -1,5 +1,3 @@
-// src/routes/movie.routes.ts
-
 import { Router } from 'express'
 import {
   getAllMovies,
@@ -25,7 +23,24 @@ const router = Router()
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Movie'
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   title:
+ *                     type: string
+ *                   description:
+ *                     type: string
+ *                     nullable: true
+ *                   releaseDate:
+ *                     type: string
+ *                     format: date-time
+ *                   rating:
+ *                     type: number
+ *                     format: float
+ *                   createdAt:
+ *                     type: string
+ *                     format: date-time
  */
 router.get('/', getAllMovies)
 
@@ -39,9 +54,9 @@ router.get('/', getAllMovies)
  *     parameters:
  *       - in: path
  *         name: id
+ *         required: true
  *         schema:
  *           type: integer
- *         required: true
  *         description: The movie ID
  *     responses:
  *       200:
@@ -49,7 +64,24 @@ router.get('/', getAllMovies)
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Movie'
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                 title:
+ *                   type: string
+ *                 description:
+ *                   type: string
+ *                   nullable: true
+ *                 releaseDate:
+ *                   type: string
+ *                   format: date-time
+ *                 rating:
+ *                   type: number
+ *                   format: float
+ *                 createdAt:
+ *                   type: string
+ *                   format: date-time
  *       404:
  *         description: Movie not found
  */
@@ -67,14 +99,47 @@ router.get('/:id', getMovieById)
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/MovieInput'
- *     responses:
+ *             type: object
+ *             required:
+ *               - title
+ *               - releaseDate
+ *               - rating
+ *             properties:
+ *               title:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *                 nullable: true
+ *               releaseDate:
+ *                 type: string
+ *                 format: date-time
+ *               rating:
+ *                 type: number
+ *                 format: float
+     responses:
  *       201:
  *         description: Movie created successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Movie'
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                 title:
+ *                   type: string
+ *                 description:
+ *                   type: string
+ *                   nullable: true
+ *                 releaseDate:
+ *                   type: string
+ *                   format: date-time
+ *                 rating:
+ *                   type: number
+ *                   format: float
+ *                 createdAt:
+ *                   type: string
+ *                   format: date-time
  */
 router.post('/', createMovie)
 
@@ -88,9 +153,9 @@ router.post('/', createMovie)
  *     parameters:
  *       - in: path
  *         name: id
+ *         required: true
  *         schema:
  *           type: integer
- *         required: true
  *         description: The movie ID
  *     responses:
  *       204:
